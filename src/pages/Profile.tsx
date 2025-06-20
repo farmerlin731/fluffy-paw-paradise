@@ -1,4 +1,3 @@
-
 import PageWrapper from "@/components/layout/PageWrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -16,10 +15,10 @@ import { User, Calendar, DollarSign, Scissors } from "lucide-react";
 const Profile = () => {
   // Mock user data
   const userData = {
-    name: "王小明",
+    name: "林小農",
     email: "wang@example.com",
     phone: "0912-345-678",
-    memberSince: "2023年3月"
+    memberSince: "2025年6月",
   };
 
   // Mock booking history data
@@ -30,7 +29,7 @@ const Profile = () => {
       service: "完整美容套餐",
       petName: "小白",
       cost: 1500,
-      status: "已完成"
+      status: "已完成",
     },
     {
       id: 2,
@@ -38,7 +37,7 @@ const Profile = () => {
       service: "基礎洗澡",
       petName: "小花",
       cost: 800,
-      status: "已完成"
+      status: "已完成",
     },
     {
       id: 3,
@@ -46,7 +45,7 @@ const Profile = () => {
       service: "指甲修剪",
       petName: "小白",
       cost: 300,
-      status: "已完成"
+      status: "已完成",
     },
     {
       id: 4,
@@ -54,11 +53,14 @@ const Profile = () => {
       service: "完整美容套餐",
       petName: "小花",
       cost: 1500,
-      status: "已完成"
-    }
+      status: "已完成",
+    },
   ];
 
-  const totalSpent = bookingHistory.reduce((total, booking) => total + booking.cost, 0);
+  const totalSpent = bookingHistory.reduce(
+    (total, booking) => total + booking.cost,
+    0
+  );
 
   return (
     <PageWrapper>
@@ -122,11 +124,22 @@ const Profile = () => {
                   </TableHeader>
                   <TableBody>
                     {bookingHistory.map((booking) => (
-                      <TableRow key={booking.id} className="hover:bg-lavender-50">
-                        <TableCell className="text-gray-700">{booking.date}</TableCell>
-                        <TableCell className="text-gray-700">{booking.service}</TableCell>
-                        <TableCell className="text-gray-700">{booking.petName}</TableCell>
-                        <TableCell className="text-gray-700">NT$ {booking.cost.toLocaleString()}</TableCell>
+                      <TableRow
+                        key={booking.id}
+                        className="hover:bg-lavender-50"
+                      >
+                        <TableCell className="text-gray-700">
+                          {booking.date}
+                        </TableCell>
+                        <TableCell className="text-gray-700">
+                          {booking.service}
+                        </TableCell>
+                        <TableCell className="text-gray-700">
+                          {booking.petName}
+                        </TableCell>
+                        <TableCell className="text-gray-700">
+                          NT$ {booking.cost.toLocaleString()}
+                        </TableCell>
                         <TableCell>
                           <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
                             {booking.status}
@@ -137,12 +150,15 @@ const Profile = () => {
                   </TableBody>
                 </Table>
               </div>
-              
+
               {bookingHistory.length === 0 && (
                 <div className="text-center py-12 text-gray-500">
                   <Scissors className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>尚無預約紀錄</p>
-                  <Button asChild className="mt-4 bg-primary hover:bg-primary/90">
+                  <Button
+                    asChild
+                    className="mt-4 bg-primary hover:bg-primary/90"
+                  >
                     <a href="/booking">立即預約</a>
                   </Button>
                 </div>
@@ -158,9 +174,9 @@ const Profile = () => {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button 
-                asChild 
-                variant="outline" 
+              <Button
+                asChild
+                variant="outline"
                 className="h-16 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
               >
                 <a href="/booking" className="flex flex-col items-center">
@@ -168,9 +184,9 @@ const Profile = () => {
                   新增預約
                 </a>
               </Button>
-              <Button 
-                asChild 
-                variant="outline" 
+              <Button
+                asChild
+                variant="outline"
                 className="h-16 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
               >
                 <a href="/services" className="flex flex-col items-center">
@@ -178,9 +194,9 @@ const Profile = () => {
                   查看服務
                 </a>
               </Button>
-              <Button 
-                asChild 
-                variant="outline" 
+              <Button
+                asChild
+                variant="outline"
                 className="h-16 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
               >
                 <a href="/contact" className="flex flex-col items-center">
