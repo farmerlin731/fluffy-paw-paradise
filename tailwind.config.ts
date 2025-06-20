@@ -63,12 +63,28 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for our pet grooming salon
+				// Enhanced color scheme with lavender
 				salon: {
-					'pink': '#FFD6E0',
-					'light-pink': '#FDE1D3',
-					'white': '#FFFFFF',
-					'gray': '#F8F8F8'
+					'pink': '#f8bbd9',
+					'light-pink': '#fce7f3',
+					'lavender': '#e9d5ff',
+					'deep-lavender': '#c4b5fd',
+					'white': '#ffffff',
+					'gray': '#f8f9fa',
+					'text-dark': '#374151'
+				},
+				// Additional lavender shades
+				lavender: {
+					50: '#faf5ff',
+					100: '#f3e8ff',
+					200: '#e9d5ff',
+					300: '#d8b4fe',
+					400: '#c084fc',
+					500: '#a855f7',
+					600: '#9333ea',
+					700: '#7c3aed',
+					800: '#6b21a8',
+					900: '#581c87'
 				}
 			},
 			borderRadius: {

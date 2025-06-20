@@ -1,7 +1,9 @@
-import { Menu } from "lucide-react";
+
+import { Menu, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -24,7 +26,7 @@ function Navbar() {
         {/* Logo + 店名 */}
         <Link
           to="/"
-          className="flex items-center space-x-2 font-bold text-lg text-pink-600"
+          className="flex items-center space-x-2 font-bold text-lg text-primary hover:text-primary/80 transition-colors"
         >
           <img src="/logo.svg" alt="logo" className="h-8 w-8" />
           <span>寵物有珈</span>
@@ -39,7 +41,7 @@ function Navbar() {
                   <NavigationMenuLink asChild>
                     <Link
                       to={item.href}
-                      className="text-sm font-medium hover:text-pink-500 transition-colors"
+                      className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -49,13 +51,32 @@ function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <Button asChild className="bg-pink-500 hover:bg-pink-600 text-white">
+          <Button asChild className="bg-primary hover:bg-primary/90 text-white">
             <Link to="/booking">立即預約</Link>
           </Button>
+
+          {/* User Avatar */}
+          <Link to="/profile" className="ml-2">
+            <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all">
+              <AvatarImage src="/placeholder-user.jpg" alt="用戶頭像" />
+              <AvatarFallback className="bg-lavender-200 text-gray-700">
+                <User className="h-4 w-4" />
+              </AvatarFallback>
+            </Avatar>
+          </Link>
         </nav>
 
         {/* 漢堡選單 (行動版) */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center space-x-2">
+          <Link to="/profile">
+            <Avatar className="h-8 w-8 hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all">
+              <AvatarImage src="/placeholder-user.jpg" alt="用戶頭像" />
+              <AvatarFallback className="bg-lavender-200 text-gray-700">
+                <User className="h-4 w-4" />
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+          
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
@@ -66,21 +87,21 @@ function Navbar() {
               side="right"
               className="w-[250px] p-6 flex flex-col gap-4"
             >
-              <div className="text-lg font-bold mb-2 text-pink-600">
+              <div className="text-lg font-bold mb-2 text-primary">
                 寵物有珈
               </div>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
-                  className="text-sm font-medium text-gray-700 hover:text-pink-500"
+                  className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
                 >
                   {item.label}
                 </Link>
               ))}
               <Button
                 asChild
-                className="mt-4 bg-pink-500 hover:bg-pink-600 text-white"
+                className="mt-4 bg-primary hover:bg-primary/90 text-white"
               >
                 <Link to="/booking">立即預約</Link>
               </Button>

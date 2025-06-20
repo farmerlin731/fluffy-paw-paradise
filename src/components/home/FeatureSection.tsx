@@ -27,18 +27,18 @@ const features = [
 
 const FeatureSection = () => {
   return (
-    <section className="py-16 bg-salon-white">
+    <section className="py-16 bg-gradient-to-b from-white to-lavender-50">
       <div className="salon-container">
-        <h2 className="section-title text-center mb-12">我們的特色</h2>
+        <h2 className="section-title text-center mb-12 text-gray-800">我們的特色</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="card-shadow bg-white border-0 overflow-hidden">
+            <Card key={index} className="card-shadow bg-white border-0 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6 text-center">
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-4 p-3 bg-lavender-100 rounded-full w-fit mx-auto">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
