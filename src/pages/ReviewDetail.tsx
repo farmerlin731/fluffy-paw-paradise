@@ -1,10 +1,10 @@
 import PageWrapper from "@/components/layout/PageWrapper";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Star, ArrowLeft } from "lucide-react";
+import { Link, useParams, Navigate } from "react-router-dom";
 
-// Fake review data
+// Same review data as in Reviews page
 const reviews = [
   {
     id: 1,
@@ -118,65 +118,89 @@ const reviews = [
   }
 ];
 
-const ReviewCard = ({ review }: { review: typeof reviews[0] }) => {
-  return (
-    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col">
-      <CardContent className="p-6 flex-1 flex flex-col">
-        <div className="flex flex-col items-center text-center space-y-4 flex-1">
-          <img
-            src={review.petPhoto}
-            alt={`${review.petName}的照片`}
-            className="w-32 h-32 rounded-2xl object-cover border-4 border-lavender-200 shadow-md"
-          />
-          <h3 className="text-lg font-semibold text-gray-800">{review.petName}</h3>
-          <div className="flex space-x-1">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 ${
-                  i < review.rating ? "text-yellow-400 fill-current" : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-          <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 flex-1">
-            {review.comment}
-          </p>
-          <Button 
-            asChild 
-            variant="outline" 
-            size="sm" 
-            className="mt-auto rounded-full border-lavender-300 text-lavender-600 hover:bg-lavender-50"
-          >
-            <Link to={`/reviews/${review.id}`}>閱讀更多</Link>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+const ReviewDetail = () => {
+  const { id } = useParams();
+  const reviewId = parseInt(id || '0');
+  const review = reviews.find(r => r.id === reviewId);
 
-const Reviews = () => {
+  if (!review) {
+    return <Navigate to="/reviews" replace />;
+  }
+
   return (
     <PageWrapper>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            客戶評價
-          </h1>
-          <p className="text-lg text-gray-600">
-            聽聽其他毛爸毛媽的真實分享
-          </p>
+      <div className="max-w-4xl mx-auto">
+        {/* Back Button */}
+        <div className="mb-6">
+          <Button asChild variant="ghost" className="rounded-full">
+            <Link to="/reviews" className="flex items-center gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              返回評價列表
+            </Link>
+          </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {reviews.map((review) => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </div>
+        {/* Review Detail Card */}
+        <Card>
+          <CardContent className="p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                {review.petName} 的美容評價
+              </h1>
+              <div className="flex justify-center space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-6 h-6 ${
+                      i < review.rating ? "text-yellow-400 fill-current" : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Pet Photos */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                {review.petName} 的美容照片
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                {review.petPhotos.map((photo, index) => (
+                  <div key={index} className="aspect-square">
+                    <img
+                      src={photo}
+                      alt={`${review.petName}的美容照片 ${index + 1}`}
+                      className="w-full h-full object-cover rounded-2xl border-4 border-lavender-200 shadow-lg"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Full Comment */}
+            <div className="bg-gradient-to-br from-lavender-50 to-pink-50 rounded-2xl p-6">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                完整評價內容
+              </h2>
+              <p className="text-gray-700 leading-relaxed text-center text-lg">
+                {review.comment}
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <Button asChild size="lg" className="rounded-full">
+                <Link to="/booking">立即預約美容服務</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="rounded-full">
+                <Link to="/reviews">查看更多評價</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </PageWrapper>
   );
 };
 
-export default Reviews;
+export default ReviewDetail;

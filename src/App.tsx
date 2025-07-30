@@ -11,6 +11,7 @@ import TestPricing from "./pages/TestPricing";
 import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import Reviews from "./pages/Reviews";
+import ReviewDetail from "./pages/ReviewDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/testpricing" element={<TestPricing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviews/:id" element={<ReviewDetail />} />
           <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
