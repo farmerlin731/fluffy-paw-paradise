@@ -2,6 +2,7 @@
 import PageWrapper from "@/components/layout/PageWrapper";
 import HeroSection from "@/components/home/HeroSection";
 import FeatureSection from "@/components/home/FeatureSection";
+import ReviewCarousel from "@/components/home/ReviewCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -12,6 +13,7 @@ const Home = () => {
     <PageWrapper>
       <HeroSection />
       <FeatureSection />
+      <ReviewCarousel />
       
       {/* Welcome Section */}
       <section className="py-16">
