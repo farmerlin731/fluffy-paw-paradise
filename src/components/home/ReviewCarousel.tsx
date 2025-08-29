@@ -6,9 +6,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Star } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Hand } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 // Same review data as in Reviews page (first 6 for carousel)
 const featuredReviews = [
@@ -57,6 +58,12 @@ const featuredReviews = [
 ];
 
 const ReviewCarousel = () => {
+  const [showSwipeHint, setShowSwipeHint] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSwipeHint(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <section className="py-16 bg-gradient-to-br from-lavender-50 to-pink-50">
       <div className="salon-container">
@@ -69,13 +76,25 @@ const ReviewCarousel = () => {
           </p>
         </div>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full max-w-5xl mx-auto"
-        >
+        {/* Mobile Swipe Hint */}
+        {showSwipeHint && (
+          <div className="block md:hidden mb-6">
+            <div className="flex items-center justify-center space-x-2 animate-bounce">
+              <Hand className="w-5 h-5 text-pink-400" />
+              <span className="text-sm text-gray-500">左右滑動查看更多評價</span>
+              <Hand className="w-5 h-5 text-pink-400 scale-x-[-1]" />
+            </div>
+          </div>
+        )}
+
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto"
+          >
           <CarouselContent className="-ml-2 md:-ml-4">
             {featuredReviews.map((review) => (
               <CarouselItem key={review.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
@@ -115,9 +134,46 @@ const ReviewCarousel = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
-        </Carousel>
+          
+          {/* 桌面版自訂導航按鈕 - 更大更明顯 */}
+          <CarouselPrevious className="hidden md:flex left-0 -translate-x-1/2 w-14 h-14 bg-gradient-to-r from-pink-400 to-purple-400 border-0 shadow-xl hover:shadow-2xl hover:scale-115 transition-all duration-300 z-10">
+            <ChevronLeft className="w-7 h-7 text-white" />
+          </CarouselPrevious>
+          <CarouselNext className="hidden md:flex right-0 translate-x-1/2 w-14 h-14 bg-gradient-to-r from-purple-400 to-pink-400 border-0 shadow-xl hover:shadow-2xl hover:scale-115 transition-all duration-300 z-10">
+            <ChevronRight className="w-7 h-7 text-white" />
+          </CarouselNext>
+
+          {/* 手機版導航按鈕 - 固定在底部 */}
+          <div className="flex md:hidden justify-center mt-6 space-x-4">
+            <CarouselPrevious className="relative left-0 translate-x-0 translate-y-0 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-400 border-0 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </CarouselPrevious>
+            <div className="flex items-center px-4">
+              <div className="flex space-x-2">
+                {featuredReviews.map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-2 h-2 rounded-full bg-pink-300 opacity-50"
+                  />
+                ))}
+              </div>
+            </div>
+            <CarouselNext className="relative right-0 translate-x-0 translate-y-0 w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 border-0 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
+              <ChevronRight className="w-6 h-6 text-white" />
+            </CarouselNext>
+          </div>
+
+          {/* 桌面版進度指示器 */}
+          <div className="hidden md:flex justify-center mt-6 space-x-3">
+            {featuredReviews.map((_, index) => (
+              <div
+                key={index}
+                className="w-3 h-3 rounded-full bg-gradient-to-r from-pink-300 to-purple-300 opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+              />
+            ))}
+          </div>
+          </Carousel>
+        </div>
 
         <div className="text-center mt-8">
           <Button asChild variant="outline" size="lg" className="rounded-full">
