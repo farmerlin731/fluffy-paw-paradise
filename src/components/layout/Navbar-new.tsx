@@ -15,6 +15,7 @@ function Navbar() {
     { label: "首頁", href: "/" },
     { label: "服務項目", href: "/services" },
     { label: "價目表", href: "/pricing" },
+    { label: "價目表claude", href: "/pricing-optimized" },
     { label: "test價目", href: "/testpricing" },
     { label: "預約", href: "/booking" },
     { label: "客戶評價", href: "/reviews" },
