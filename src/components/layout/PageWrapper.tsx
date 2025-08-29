@@ -37,18 +37,22 @@ const PageWrapper = ({
   };
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={variants[animationType]}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="flex flex-col min-h-screen"
-    >
+    <>
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">{children}</main>
-      <Footer />
-    </motion.div>
+      <motion.div
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={variants[animationType]}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="flex flex-col min-h-screen"
+      >
+        <main className="flex-grow container mx-auto px-4 py-8">
+          {children}
+        </main>
+        <Footer />
+      </motion.div>
+    </>
   );
 };
 
