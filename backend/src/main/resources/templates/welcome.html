@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${appName}">Welcome Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet"/>
+</head>
+<body class="theme-light">
+    <div class="page">
+        <div class="container mt-5">
+            <h1 th:text="${welcomeMessage}">Welcome!</h1>
+            <p><strong>Current Time:</strong> <span th:text="${now}">time</span></p>
+
+            <h3>Features:</h3>
+            <ul>
+                <li th:each="feature : ${features}" th:text="${feature}">Feature</li>
+            </ul>
+
+            <div class="alert alert-success mt-4">
+                <strong>Thymeleaf is working perfectly!</strong>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
