@@ -1,5 +1,5 @@
 import { Menu, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -9,8 +9,12 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { useState } from "react";
 
 function Navbar() {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const location = useLocation();
+
   const navItems = [
     { label: "首頁", href: "/" },
     { label: "服務項目", href: "/services" },
@@ -79,7 +83,7 @@ function Navbar() {
             </Avatar>
           </Link>
 
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
                 <Menu className="h-5 w-5" />
@@ -97,6 +101,7 @@ function Navbar() {
                   key={item.href}
                   to={item.href}
                   className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+                  onClick={() => setIsSheetOpen(false)}
                 >
                   {item.label}
                 </Link>
@@ -105,7 +110,9 @@ function Navbar() {
                 asChild
                 className="mt-4 bg-primary hover:bg-primary/90 text-white"
               >
-                <Link to="/booking">立即預約</Link>
+                <Link to="/booking" onClick={() => setIsSheetOpen(false)}>
+                  立即預約
+                </Link>
               </Button>
             </SheetContent>
           </Sheet>
