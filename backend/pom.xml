@@ -68,6 +68,16 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--by hands-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version> <!-- 版本可以去 Maven Central 查最新 -->
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>
